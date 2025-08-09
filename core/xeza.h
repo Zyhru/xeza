@@ -1,8 +1,24 @@
 #ifndef XEZA_H
 #define XEZA_H
 
+#include <stdbool.h>
+#include "window.h"
+
+#define XEZA_ERR -1
+
+struct xeza_shutdown_state {
+    window_t *window;
+};
+
+typedef struct {
+    unsigned int vao;
+    unsigned int vbo;
+    unsigned int ebo;
+} xeza_object;
+
 int xeza_init();
-bool xeza_main_loop();
-void xeza_shutdown();
+bool xeza_main_loop(window_t *window);
+
+void xeza_shutdown(struct xeza_shutdown_state *shutdown_state);
 
 #endif
