@@ -1,7 +1,6 @@
 #ifndef XEZA_H
 #define XEZA_H
 
-#include <stdbool.h>
 #include "window.h"
 
 #define XEZA_ERR -1
@@ -18,6 +17,7 @@ typedef struct {
 
 int xeza_init();
 bool xeza_main_loop(window_t *window);
+color_t xeza_create_color(float r, float g, float b);
 
 void xeza_shutdown(struct xeza_shutdown_state *shutdown_state);
 

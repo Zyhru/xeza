@@ -22,6 +22,14 @@ bool xeza_main_loop(window_t *w) {
     return flag;
 }
 
+color_t xeza_create_color(float r, float g, float b) {
+    color_t color;
+    color.r = r;
+    color.g = g;
+    color.b = b;
+    return color;
+}
+
 void xeza_shutdown(struct xeza_shutdown_state *zst) {
     glfwDestroyWindow(zst->window->win);
 
