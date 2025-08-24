@@ -3,14 +3,13 @@
 - [ ] Build system
 - [ ] Core system 
     - [ ] Window
-    - [ ] Shaders 
-    - [ ] Render submission 
+    - [x] Shaders 
+    - [x] Render submission 
     - [ ] Textures 
     - [ ] Camera 
     - [ ] Logger 
-    - [ ] Utils 
-        - read files
-
+    - [x] Utils 
+- [ ] Dynamic List appending 
 - [ ] Test by rendering a triangle 
 - [ ] Parse OBJ models 
 
@@ -21,23 +20,6 @@ The basic system should have an efficient way in setting up a program that will 
 behind the scenes with a simple call:
 
 pseudo code:
-
-xeza_init
-xeza_create_window
-xeza_init_shaders?
-
-xeza_ro triangle = setup_object
-
-submit object for rendering (opengl calls)
-
-main loop:
-    clearbuffer
-    clear
-
-    render object
-
-    pollevents
-    swapbuffers
 
 ## Tools
 CMake
@@ -81,6 +63,3 @@ enum status_error_e {
     INIT_GLFW_ERR
     INIT_XEZA_CTX
 };
-
-
-

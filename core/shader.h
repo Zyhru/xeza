@@ -15,8 +15,7 @@ typedef struct {
 } shader_err_t;
 
 // initialize shaders
-int xeza_shader_init(char *v, char *f, shader_t *shader);
-int xeza_read_file(char *file_name, char **buffer);
+int shader_init(char *v, char *f, shader_t *shader);
 void shader_compilation_error(GLenum shader_type, char *shader_name, unsigned int shd, shader_err_t *shd_err);    
 
 // read shader file (move to util file? might need this function for later)

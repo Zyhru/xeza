@@ -1,19 +1,17 @@
 #include "shader.h"
-#include "api.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "util/util.h"
+
 
 // create shader
 // attach shader source 
 // compile shader
-int xeza_shader_init(char *v, char *f, shader_t *shader) {
-    int res = 0;
+int shader_init(char *v, char *f, shader_t *shader) {
     shader_err_t shd_err;
     unsigned int v_shader, f_shader;
     char *vertex_buffer, *fragment_buffer;
 
-    if ((res = xeza_read_file(v, &vertex_buffer))   < 0) return -1;
-    if ((res = xeza_read_file(f, &fragment_buffer)) < 0) return -1;
+    if (util_read_file(v, &vertex_buffer) == -1)    return -1;
+    if (util_read_file(f, &fragment_buffer) == -1)  return -1;
     
     v_shader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(v_shader, 1, (const char *const *)&vertex_buffer, NULL);
@@ -54,32 +52,4 @@ void shader_compilation_error(GLenum shader_type, char *shader_name, unsigned in
                 break;
         }
     }
-}
-
-int xeza_read_file(char *file_name, char **buffer) {
-    FILE *fp = fopen(file_name, "rb");
-    if (!fp) {
-        fprintf(stderr, "unable to open file: %s\n", file_name); 
-        return -1;  // failed to open file
-    }
-
-    // grab the size of the entire file
-    int size;
-    fseek(fp, 0, SEEK_END);
-    size = ftell(fp);
-    fseek(fp, 0, SEEK_SET);
-
-    size_t n = size + 1;
-    *buffer = malloc(n);
-    if (!buffer) {
-        fprintf(stderr, "Failed to allocate %zu number of bytes\n", n); 
-        fclose(fp);
-        return -1;
-    }
-
-    fread(*buffer, 1, size, fp);
-    (*buffer)[size] = '\0';
-
-    fclose(fp);
-    return 0;
 }
