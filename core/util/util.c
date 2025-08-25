@@ -53,6 +53,7 @@ char* substr(char* s, int x, int y) {
 }
 
 int util_read_file(char *file_name, char **buffer) {
+    printf("Reading file: %s\n", file_name);
     FILE *fp = fopen(file_name, "rb");
     if (!fp) {
         fprintf(stderr, "unable to open file: %s\n", file_name); 
@@ -76,5 +77,6 @@ int util_read_file(char *file_name, char **buffer) {
     (*buffer)[size] = '\0';
 
     fclose(fp);
+    puts("Finished reading file");
     return 0;
 }

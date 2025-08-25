@@ -2,15 +2,15 @@
 
 - [ ] Build system
 - [ ] Core system 
-    - [ ] Window
+    - [x] Window
     - [x] Shaders 
     - [x] Render submission 
     - [ ] Textures 
     - [ ] Camera 
     - [ ] Logger 
     - [x] Utils 
-- [ ] Dynamic List appending 
-- [ ] Test by rendering a triangle 
+- [x] Dynamic List appending (Keep reviewing this though)
+- [x] Test by rendering a triangle 
 - [ ] Parse OBJ models 
 
 NOTE: I want to get a basic system down first, and see from there what will need to be refactored
@@ -19,7 +19,10 @@ and if I need to change/add components.
 The basic system should have an efficient way in setting up a program that will allow me to setup an object and let the renderer handle everything else 
 behind the scenes with a simple call:
 
-pseudo code:
+## Recap 8/24/2025
+ - I was initializing the renderer first instead of the window context, which was running OpenGL functions before initializing and loading OGL's function
+pointers
+
 
 ## Tools
 CMake

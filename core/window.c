@@ -1,4 +1,5 @@
 #include "window.h"
+#include "renderer.h"
 
 window_t window;
 
@@ -25,7 +26,7 @@ void window_init() {
         exit(1);
     }
 
-    glfwMakeContextCurrent(window.win);
+    glfwMakeContextCurrent(window.win); // this must be active first, before any gl calls
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         fprintf(stderr, "ERROR: Failed to load glad\n");
         glfwTerminate();
@@ -38,6 +39,7 @@ void window_loop(renderer_t *r) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.2f, 0.5f, 0.6f, 1.0f);
 
+        renderer_use_shader(r);
         renderer_draw(r);
 
         glfwSwapBuffers(window.win);

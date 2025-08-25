@@ -1,18 +1,20 @@
 #include "renderer.h"
 #include "buffer.h"
+#include <stdio.h>
 
 //INFO: initializing the shader, camera, texture, and model
 void renderer_init(renderer_t* r) {
+    puts("Initialzing renderer.");
     shader_t shader;
     gl_t triangle;
-    int shd_res = shader_init("../shaders/vertex.glsl", "../shaders/fragment.glsl", &shader);
+    int shd_res = shader_init("shaders/vertex.glsl", "shaders/fragment.glsl", &shader);
     if (shd_res == -1) {
         fprintf(stderr, "Failed to initalize shader");
         exit(1);
     }
 
     // for testing, we'll have a predefined triangle
-    // WARNING: This mostly likely might fail
+    //puts("Creating list.");
     triangle.vertex_buff = buffer_create_list(3, VERTEX_BUFFER);
 
     vertex_t v1 = { {0.0f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f} };
@@ -23,13 +25,14 @@ void renderer_init(renderer_t* r) {
     list_append(triangle.vertex_buff, &v2);
     list_append(triangle.vertex_buff, &v3);
 
+    //printf("List size: %d\n", triangle.vertex_buff->size); 
     list_print(triangle.vertex_buff);
 
     gl_create_object(&triangle);
     
     // will this save correctly?
-    r->object = triangle; // values and pointers are copied
     // this is okay since both lists are allocated on the heap
+    r->object = triangle; // values and pointers are copied
     r->shd = shader; // all thats being copied over is the program
 }
 

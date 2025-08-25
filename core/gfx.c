@@ -7,10 +7,11 @@ void gfx_init_pipeline(char *obj_file) {
 
     // TODO: Parse obj file 
 
+    window_init();
+    
     renderer_t renderer;
     renderer_init(&renderer);
     
-    window_init();
     window_loop(&renderer);
 
     free(renderer.object.vertex_buff);

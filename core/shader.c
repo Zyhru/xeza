@@ -1,38 +1,52 @@
 #include "shader.h"
 #include "util/util.h"
+#include <stdio.h>
 
 
 // create shader
 // attach shader source 
 // compile shader
-int shader_init(char *v, char *f, shader_t *shader) {
+// TODO: Update logging/print statements
+int shader_init(char *v, char *f, shader_t* shader) {
+    puts("Initialzing shader");
     shader_err_t shd_err;
     unsigned int v_shader, f_shader;
     char *vertex_buffer, *fragment_buffer;
 
-    if (util_read_file(v, &vertex_buffer) == -1)    return -1;
+    if (util_read_file(v, &vertex_buffer)   == -1)  return -1;
     if (util_read_file(f, &fragment_buffer) == -1)  return -1;
-    
+
+    printf("Vertex Shader: %s\n", vertex_buffer);
+    printf("Fragment Shader: %s\n", fragment_buffer);
+
+    puts("Compiling vertex shader");
     v_shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(v_shader, 1, (const char *const *)&vertex_buffer, NULL);
+    glShaderSource(v_shader, 1, (const GLchar* const *) &vertex_buffer, NULL);
     glCompileShader(v_shader);
     shader_compilation_error(GL_VERTEX_SHADER, "VERTEX_SHADER", v_shader, &shd_err);
+    puts("Compiled vertex shader");
     
+    puts("Compiling fragment shader");
     f_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(f_shader, 1, (const char *const *)&fragment_buffer, NULL);
+    glShaderSource(f_shader, 1, (const GLchar* const *)&fragment_buffer, NULL);
     glCompileShader(f_shader);
+    puts("Compiled fragment shader");
     shader_compilation_error(GL_FRAGMENT_SHADER, "FRAGMENT_SHADER", f_shader, &shd_err);
 
+    puts("Creating and linking shader program");
     shader->program = glCreateProgram();
     glAttachShader(shader->program, v_shader);
     glAttachShader(shader->program, f_shader);
     glLinkProgram(shader->program);
+
+    // TODO: Check for linking errors
 
     // TODO: destroying/free system ?
     glDeleteShader(v_shader);
     glDeleteShader(f_shader);
     free(vertex_buffer);
     free(fragment_buffer);
+    puts("Finished creating shader.");
     return 0;
 }
 

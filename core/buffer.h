@@ -11,16 +11,16 @@ typedef struct {
     vec3_t color;
 } vertex_t;
 
-
 typedef enum {
     VERTEX_BUFFER,
     INDEX_BUFFER
 } list_type_e;
 
 typedef struct {
-    void* buffer;
+    void* addr;
     int size;
     int capacity;
+    size_t bytes;
     list_type_e type;
 } list_t;
 

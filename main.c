@@ -14,7 +14,6 @@
 
 #define CLI_ARGUMENT_ONE 1
 
-
 int main(int argc, char** argv) {
     if (argc != 2) {
         fprintf(stderr, "usage: xeza <obj file>\n");
