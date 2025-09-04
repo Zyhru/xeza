@@ -1,7 +1,7 @@
 #include "buffer.h"
 #include <stdio.h>
 
-list_t* buffer_create_list(int size, list_type_e type) {
+list_t* list_create(int size, list_type_e type) {
     if (size <= 0) return NULL;
     
     //printf("Creating list of type: %d\n", type);

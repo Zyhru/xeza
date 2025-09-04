@@ -14,8 +14,7 @@ void renderer_init(renderer_t* r) {
     }
 
     // for testing, we'll have a predefined triangle
-    //puts("Creating list.");
-    triangle.vertex_buff = buffer_create_list(3, VERTEX_BUFFER);
+    triangle.vertex_buff = list_create(3, VERTEX_BUFFER);
 
     vertex_t v1 = { {0.0f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f} };
     vertex_t v2 = { {-0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f} };

@@ -3,6 +3,12 @@
 
 window_t window;
 
+/**
+ * @brief Initialize GLFW and glad 
+ * 
+ * @param  void 
+ * @return void 
+ */
 void window_init() {
     if (!glfwInit()) {
         fprintf(stderr, "ERROR: Failed to initialize GLFW\n");
@@ -34,6 +40,12 @@ void window_init() {
     }
 }
 
+/**
+ * @brief Initialize GLFW and glad 
+ * 
+ * @param  a renderer_t struct pointer  
+ * @return void 
+ */
 void window_loop(renderer_t *r) {
     while(!glfwWindowShouldClose(window.win)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

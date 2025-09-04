@@ -2,12 +2,14 @@
 
 - [ ] Build system
 - [ ] Core system 
+    - [ ] Model View Projection matrices
+        - I guess I can work on this now and test with a cube so when I work on the camera I'll have minimal issues.
+    - [ ] Camera 
+    - [ ] Textures 
+    - [ ] Logger 
     - [x] Window
     - [x] Shaders 
     - [x] Render submission 
-    - [ ] Textures 
-    - [ ] Camera 
-    - [ ] Logger 
     - [x] Utils 
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Test by rendering a triangle 
@@ -19,10 +21,16 @@ and if I need to change/add components.
 The basic system should have an efficient way in setting up a program that will allow me to setup an object and let the renderer handle everything else 
 behind the scenes with a simple call:
 
+
+## Working On Now
+
+- Understanding MVP and implementing it to test render a cube
+- Implementing camera 
+- Understanding the coordinate system and the different spaces such as local space, world space, view space , clip space, and screen space
+
 ## Recap 8/24/2025
  - I was initializing the renderer first instead of the window context, which was running OpenGL functions before initializing and loading OGL's function
 pointers
-
 
 ## Tools
 CMake
@@ -66,3 +74,12 @@ enum status_error_e {
     INIT_GLFW_ERR
     INIT_XEZA_CTX
 };
+
+
+
+TODO Today:
+
+- Understand the basics of vector math and matrices
+for converting 2D to 3D
+- Implement a small math.h to apply what I just learned
+

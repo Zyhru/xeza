@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     }
     
     char* obj_file = argv[CLI_ARGUMENT_ONE];
-    char* file_ext = util_extdup(obj_file);
+    char* file_ext = util_extdup(obj_file); // extracting extension
     
     if (strcmp(file_ext, "obj") != 0) {
         fprintf(stderr, "Invalid file extension! Must be of type .obj\n");
