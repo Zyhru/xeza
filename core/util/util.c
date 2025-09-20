@@ -1,4 +1,5 @@
 #include "util.h"
+#include <assert.h>
 
 int util_dot_pos(char* file) {
     int index;
@@ -67,11 +68,7 @@ int util_read_file(char *file_name, char **buffer) {
 
     size_t n = size + 1;
     *buffer = malloc(n);
-    if (!buffer) {
-        fprintf(stderr, "Failed to allocate %zu number of bytes\n", n); 
-        fclose(fp);
-        return -1;
-    }
+    assert(buffer != NULL);
 
     fread(*buffer, 1, size, fp);
     (*buffer)[size] = '\0';

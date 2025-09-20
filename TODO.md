@@ -1,9 +1,14 @@
 ## TODO
 
-- [ ] Build system
+- [x] Build system
+- [ ] Parse OBJ models 
 - [ ] Core system 
-    - [ ] Model View Projection matrices
-        - I guess I can work on this now and test with a cube so when I work on the camera I'll have minimal issues.
+    - [x] NDC Coordinates 
+        - [x] Install cglm 
+        - [x] Model Matrix
+        - [x] View Matrix
+        - [x] Projection Matrix
+        - [x] Render Cube 
     - [ ] Camera 
     - [ ] Textures 
     - [ ] Logger 
@@ -13,7 +18,6 @@
     - [x] Utils 
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Test by rendering a triangle 
-- [ ] Parse OBJ models 
 
 NOTE: I want to get a basic system down first, and see from there what will need to be refactored
 and if I need to change/add components.

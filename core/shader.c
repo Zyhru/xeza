@@ -1,4 +1,5 @@
 #include "shader.h"
+#include "api.h"
 #include "util/util.h"
 #include <stdio.h>
 
@@ -66,4 +67,9 @@ void shader_compilation_error(GLenum shader_type, char *shader_name, unsigned in
                 break;
         }
     }
+}
+
+void shader_mat4_uniform(GLuint program, char* name, mat4 matrix) {
+    unsigned int location = glGetUniformLocation(program, name);
+    glUniformMatrix4fv(location, 1, GL_FALSE, (float *) matrix);
 }

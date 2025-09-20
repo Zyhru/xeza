@@ -1,4 +1,5 @@
 #include "gfx.h"
+#include <stdio.h>
 
 // TODO: Initialze graphics pipeline
 void gfx_init_pipeline(char *obj_file) {
@@ -13,7 +14,5 @@ void gfx_init_pipeline(char *obj_file) {
     renderer_init(&renderer);
     
     window_loop(&renderer);
-
-    free(renderer.object.vertex_buff);
-    free(renderer.object.index_buff);
+    printf("Exiting renderer\n");
 }

@@ -32,8 +32,9 @@ typedef struct {
          // buff-> {pos, color} 2
 // sizeof(vertex_buffer_t) * size
 
-list_t* list_create(int size, list_type_e type);
+list_t* list_create(list_type_e type);
 void list_append(list_t* list, void* data);
 void list_print(list_t* list);
+void list_destroy(list_t* list);
 
 #endif

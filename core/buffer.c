@@ -1,9 +1,7 @@
 #include "buffer.h"
 #include <stdio.h>
 
-list_t* list_create(int size, list_type_e type) {
-    if (size <= 0) return NULL;
-    
+list_t* list_create(list_type_e type) {
     //printf("Creating list of type: %d\n", type);
 
     list_t* list = malloc(sizeof(list_t));
@@ -35,7 +33,6 @@ list_t* list_create(int size, list_type_e type) {
 }
 
 void list_append(list_t* list, void* data) {
-    //printf("Appending: {}\n"); // cant get the data at runtime since it's a void*, compiler doesn't like this
     if(list->size >= list->capacity) {
         int new_capacity = list->capacity * 2; // use this new capacity to relloacate memory
         void* new_ptr = realloc(list->addr, new_capacity);
@@ -45,19 +42,15 @@ void list_append(list_t* list, void* data) {
         list->addr = new_ptr;
     }
 
-    // TODO: Attend to this monstrosity
-    // Debug the seg fault 
-    // Think on how to dynamically append this depending on the type
-    // addr + 0 + sizeof(vertex_t)
     void* ptr = list->addr + list->size * list->bytes;
     memcpy(ptr, data, list->bytes);
-    list->size++;
-    //memcpy(&list->buffer[list->size++], data, sizeof(data));
+    list->size++; // this should only increase in size if the size is >= cap
 }
 
 void list_print(list_t* list) {
     switch (list->type) {
         case VERTEX_BUFFER:
+            printf("Vertex Buffer List size: %d\n", list->size);
             for (int i = 0; i < list->size; i++) {
                 vertex_t vertex = ((vertex_t *)list->addr)[i];
                 printf("%d: pos %f, %f, %f\n", i, vertex.pos.x, vertex.pos.y, vertex.pos.z);
@@ -65,10 +58,23 @@ void list_print(list_t* list) {
             }
             break;
         case INDEX_BUFFER:
-            // TODO: Fill this in
+            printf("Index Buffer List size: %d\n", list->size);
+            for (int i = 0; i < list->size; i++) {
+                unsigned int index = ((unsigned int *)list->addr)[i];
+                printf("%d: %d\n", i, index);
+            }
             break;
         default:
             break;
     }
 
+}
+
+void list_destroy(list_t *list) {
+    if(list != NULL) {
+        free(list);
+        free(list->addr);
+        list = NULL;
+        list->addr = NULL;
+    }
 }

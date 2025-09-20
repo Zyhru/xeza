@@ -14,6 +14,7 @@ typedef struct {
 void renderer_init(renderer_t* r);
 void renderer_draw(renderer_t* r);
 void renderer_use_shader(renderer_t *r);
+void renderer_create_cube(renderer_t *r);
 
 /*
 *

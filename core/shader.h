@@ -21,6 +21,7 @@ void shader_compilation_error(GLenum shader_type, char *shader_name, unsigned in
 // read shader file (move to util file? might need this function for later)
 
 // set shader uniforms
+void shader_mat4_uniform(GLuint program, char* name, mat4 matrix);
 
 // check for errors
 
