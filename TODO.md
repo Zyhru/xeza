@@ -19,6 +19,10 @@
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Test by rendering a triangle 
 
+## Bugs
+- Whenever I kill the process with an alt c (killactive) I get segfaults, but
+whenever I kill the process with an ctrl-c, its all good... make sure to check into this
+
 NOTE: I want to get a basic system down first, and see from there what will need to be refactored
 and if I need to change/add components.
 

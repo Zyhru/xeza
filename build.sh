@@ -1,3 +1,3 @@
 #!/bin/bash
 make
-make run
+./xeza cube.obj

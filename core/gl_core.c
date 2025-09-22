@@ -1,10 +1,13 @@
 #include "gl_core.h"
 #include "api.h"
-#include <stdio.h>
+
+#define SCALE_FACTOR 0.5f
 
 void gl_create_object(gl_t* object) {
     assert(object->vertex_buff != NULL);
     assert(object->index_buff != NULL);
+   
+    gl_init_transform(object);
 
     /* Creating GL Object */
     glGenBuffers(1, &object->vbo);
@@ -26,4 +29,29 @@ void gl_create_object(gl_t* object) {
     
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertex_t), (void *) offsetof(vertex_t, color));
     glEnableVertexAttribArray(1);
+}
+
+void gl_init_transform(gl_t* object) {
+    vec3 position = {0.0f, 0.0f, -1.0f};
+    vec3 scale = {SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR};
+
+    object->transform.angle = 90.0f;
+    memcpy(object->transform.pos, position, sizeof(position));
+    memcpy(object->transform.scale, scale, sizeof(scale));
+   
+    #ifdef DEBUG
+    printf("Model Transform\n");
+    printf("Model Position: {%f, %f, %f}\n", object->transform.pos[0],
+           object->transform.pos[1], object->transform.pos[2]);
+    
+    printf("Model Scale: {%f, %f, %f}\n", object->transform.scale[0],
+           object->transform.scale[1], object->transform.scale[2]);
+    #endif
+}
+
+void gl_apply_transform(gl_t *object, mat4* model) {
+    vec3 axis = {0.5f, 0.5f, 0.5f};
+    glm_translate(*model, object->transform.pos);
+    glm_rotate(*model, glm_rad(object->transform.angle) * glfwGetTime(), axis);
+    glm_scale(*model, object->transform.scale);
 }

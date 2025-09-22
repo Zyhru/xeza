@@ -72,9 +72,9 @@ void list_print(list_t* list) {
 
 void list_destroy(list_t *list) {
     if(list != NULL) {
-        free(list);
         free(list->addr);
-        list = NULL;
-        list->addr = NULL;
+        free(list);
+        //list = NULL;
+        //list->addr = NULL;
     }
 }
