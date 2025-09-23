@@ -18,6 +18,7 @@
     - [x] Utils 
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Test by rendering a triangle 
+- [ ] Have some a GUI window that will have a menu to select some settings before starting the renderer
 
 ## Bugs
 - Whenever I kill the process with an alt c (killactive) I get segfaults, but
@@ -28,7 +29,6 @@ and if I need to change/add components.
 
 The basic system should have an efficient way in setting up a program that will allow me to setup an object and let the renderer handle everything else 
 behind the scenes with a simple call:
-
 
 ## Working On Now
 
