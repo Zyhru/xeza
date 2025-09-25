@@ -2,8 +2,6 @@
 
 #define TEST_SCALE_FACTOR 0.5f
 
-float dt;
-
 /**
  * @brief Initialize GLFW and glad 
  * 

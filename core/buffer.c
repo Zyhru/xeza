@@ -1,5 +1,4 @@
 #include "buffer.h"
-#include <stdio.h>
 
 list_t* list_create(list_type_e type) {
     //printf("Creating list of type: %d\n", type);
@@ -34,17 +33,17 @@ list_t* list_create(list_type_e type) {
 
 void list_append(list_t* list, void* data) {
     if(list->size >= list->capacity) {
-        int new_capacity = list->capacity * 2; // use this new capacity to relloacate memory
-        void* new_ptr = realloc(list->addr, new_capacity);
+        int new_capacity = list->capacity * 2;
+        void* new_ptr = realloc(list->addr, new_capacity * list->bytes);
         assert(new_ptr != NULL);
-       
-        free(list->addr);
         list->addr = new_ptr;
+        list->capacity = new_capacity;
     }
 
+    // TODO: Fix this. Am I doing this well?
     void* ptr = list->addr + list->size * list->bytes;
     memcpy(ptr, data, list->bytes);
-    list->size++; // this should only increase in size if the size is >= cap
+    list->size++;
 }
 
 void list_print(list_t* list) {
@@ -65,6 +64,7 @@ void list_print(list_t* list) {
             }
             break;
         default:
+            fprintf(stderr, "Invalid list type.\n");
             break;
     }
 
@@ -72,9 +72,10 @@ void list_print(list_t* list) {
 
 void list_destroy(list_t *list) {
     if(list != NULL) {
-        free(list->addr);
+        if(list->addr != NULL) {
+            free(list->addr);
+        }
+        
         free(list);
-        //list = NULL;
-        //list->addr = NULL;
     }
 }

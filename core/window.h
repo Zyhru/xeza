@@ -4,13 +4,16 @@
 // TODO: Fix global state
 
 #include "api.h"
+#include "input.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 
+
 typedef struct {
     int width;
-    int height; const char* title;
+    int height; 
+    const char* title;
     GLFWwindow* win;
     int min_version;
     int max_version;
@@ -26,5 +29,6 @@ void window_loop(window_t* self);
 void window_render();
 void window_init(window_t* window);
 void window_update();
+
 
 #endif

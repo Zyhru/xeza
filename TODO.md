@@ -1,5 +1,4 @@
 ## TODO
-
 - [x] Build system
 - [ ] Parse OBJ models 
 - [ ] Core system 
@@ -18,11 +17,17 @@
     - [x] Utils 
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Test by rendering a triangle 
-- [ ] Have some a GUI window that will have a menu to select some settings before starting the renderer
+- [ ] Have main menu window that will allow the user to interact before rendering 
+
+
+## FIX:
+- [x] Fix input system 
 
 ## Bugs
 - Whenever I kill the process with an alt c (killactive) I get segfaults, but
 whenever I kill the process with an ctrl-c, its all good... make sure to check into this
+
+- [x] Fix list_append logic
 
 NOTE: I want to get a basic system down first, and see from there what will need to be refactored
 and if I need to change/add components.

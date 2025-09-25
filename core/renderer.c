@@ -61,15 +61,9 @@ void renderer_create_cube(renderer_t* r) {
     list_append(cube.vertex_buff, &(vertex_t){.pos = { 0.5f,  0.5f, -0.5f}, .color = {0.0f, 0.0f, 1.0f}}); // 1
     list_append(cube.vertex_buff, &(vertex_t){.pos = { 0.5f,  0.5f,  0.5f}, .color = {1.0f, 0.0f, 0.0f}}); // 2
     list_append(cube.vertex_buff, &(vertex_t){.pos = {-0.5f, -0.5f, -0.5f}, .color = {0.0f, 1.0f, 0.0f}}); // 3
-
-    // replace the duplicate here with BACK-TOP-LEFT (was duplicate of index 0)
     list_append(cube.vertex_buff, &(vertex_t){.pos = {-0.5f,  0.5f, -0.5f}, .color = {0.0f, 0.0f, 1.0f}}); // 4 (back-top-left)
-
-    // keep these (they become indices 5 and 6)
     list_append(cube.vertex_buff, &(vertex_t){.pos = { 0.5f, -0.5f, -0.5f}, .color = {1.0f, 0.0f, 0.0f}}); // 5
     list_append(cube.vertex_buff, &(vertex_t){.pos = { 0.5f, -0.5f,  0.5f}, .color = {0.0f, 1.0f, 0.0f}}); // 6
-
-    // append the missing FRONT-BOTTOM-LEFT
     list_append(cube.vertex_buff, &(vertex_t){.pos = {-0.5f, -0.5f,  0.5f}, .color = {1.0f, 1.0f, 0.0f}}); // 7
 
 
@@ -109,8 +103,10 @@ void renderer_create_cube(renderer_t* r) {
     gl_create_object(&cube);
     r->object = cube;
 
+    #ifdef DEBUG
     list_print(r->object.vertex_buff);
     list_print(r->object.index_buff);
+    #endif
 }
 
 

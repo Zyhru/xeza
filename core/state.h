@@ -7,6 +7,7 @@ typedef struct {
     camera_t camera;
     renderer_t renderer;
     window_t window;
+    input_t input;
 } state_t;
 
 #endif

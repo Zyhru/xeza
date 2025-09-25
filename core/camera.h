@@ -2,7 +2,7 @@
 #define CAMERA_H 
 
 #include "api.h"
-#include "keyboard.h"
+#include "input.h"
 
 /*
 *
@@ -23,6 +23,7 @@
 //
 
 #include "math.h"
+#include "input.h"
 
 typedef struct {
     float fov;
@@ -35,8 +36,8 @@ typedef struct {
 void camera_init(camera_t* cam);
 
 // lookat matrix
-void camera_update(camera_t* cam, float dt); // look around and move around will be here
-void camera_move_around(camera_t* cam, float dt); 
+void camera_update(input_t* input, camera_t* cam, float dt); // look around and move around will be here
+void camera_move_around(input_t* input, camera_t* cam, float dt); 
 void camera_look_around(float dt); //TODO: Implement look around
 
 #endif // CAMERA_H

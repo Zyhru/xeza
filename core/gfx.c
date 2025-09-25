@@ -2,13 +2,20 @@
 #include "buffer.h"
 #include "renderer.h"
 #include "state.h"
+#include "window.h"
 
 // global state
 state_t state;
 
+// TODO: Calculate delta time
+float dt;
+
 void update() {
     renderer_use_shader(&state.renderer); // possibly be moved to render?
-    
+  
+    input_check(&state.input, state.window.win);
+    camera_update(&state.input, &state.camera, dt);
+
     mat4 projection, view, model;
 
     glm_mat4_identity(projection);
@@ -35,7 +42,6 @@ void update() {
     /* ---------------------------------------------------- */
 
     shader_mat4_uniform(state.renderer.shd.program, "mvp", mvp);
-
 }
 
 void render() {
@@ -53,12 +59,17 @@ void gfx_init_pipeline(char *obj_file) {
     printf("Parsing: %s\n", obj_file);
 
     // TODO: Parse obj file 
+    
+
+
+    input_t input;
 
     window_t window;
     window.update = update;
     window.render = render;
     window.destroy = destroy;
     window_init(&window);
+    
     
     renderer_t renderer;
     renderer_init(&renderer);
@@ -69,8 +80,8 @@ void gfx_init_pipeline(char *obj_file) {
     // passing components to global state
     state.camera = camera;
     state.renderer = renderer;
-    
     state.window = window;
+    state.input = input;
 
     window_loop(&state.window);
     printf("Exiting renderer\n");
