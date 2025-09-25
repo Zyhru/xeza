@@ -18,10 +18,6 @@
 * FOV
 */
 
-// TODO: Calculate the right vector (cross product of up and direction)
-// TODO: Delta time 
-//
-
 #include "math.h"
 #include "input.h"
 
@@ -31,13 +27,14 @@ typedef struct {
     vec3 eye;
     vec3 center;
     float speed;
+    mat4 view;
+    mat4 perspective;
 } camera_t;
 
 void camera_init(camera_t* cam);
-
-// lookat matrix
-void camera_update(input_t* input, camera_t* cam, float dt); // look around and move around will be here
-void camera_move_around(input_t* input, camera_t* cam, float dt); 
+void camera_update(input_t* input, camera_t* self, float dt); // look around and move around will be here
+void camera_move_around(input_t* input, camera_t* self, float dt); 
 void camera_look_around(float dt); //TODO: Implement look around
+void camera_look_at(camera_t* self);
 
 #endif // CAMERA_H

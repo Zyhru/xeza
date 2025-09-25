@@ -9,6 +9,8 @@
         - [x] Projection Matrix
         - [x] Render Cube 
     - [ ] Camera 
+        - [x] Move Around (WASD) 
+        - [ ] Look Around (Mouse) 
     - [ ] Textures 
     - [ ] Logger 
     - [x] Window
@@ -18,7 +20,6 @@
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Test by rendering a triangle 
 - [ ] Have main menu window that will allow the user to interact before rendering 
-
 
 ## FIX:
 - [x] Fix input system 
@@ -88,9 +89,7 @@ enum status_error_e {
     INIT_XEZA_CTX
 };
 
-
-
-TODO Today:
+## TODO Today:
 
 - Understand the basics of vector math and matrices
 for converting 2D to 3D

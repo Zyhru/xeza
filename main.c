@@ -1,14 +1,3 @@
-/* 
-* Purpose of this file will be to initialize renderer
-* Example run: ./xeza cube.obj
-* 
-*
-* TODO: Support of .obj being supported.
-* Grab the extension of .obj and check if the extension is equal to obj
-* I can start iterating the string at the position of '.' and check save each character after that into a string
-* Finally, checking if this string is == to "obj"
-*/
-
 #include "core/gfx.h"
 #include "core/util/util.h"
 
