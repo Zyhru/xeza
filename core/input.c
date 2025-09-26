@@ -1,4 +1,5 @@
 #include "input.h"
+#include <GLFW/glfw3.h>
 
 void input_check(input_t* input, GLFWwindow* window) {
     if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
@@ -23,5 +24,10 @@ void input_check(input_t* input, GLFWwindow* window) {
         input->right = true;
     } else if(glfwGetKey(window, GLFW_KEY_D) == GLFW_RELEASE) {
         input->right = false;
+    }
+    
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwDestroyWindow(window);
+        printf("Shutting down renderer.\n");
     }
 }
