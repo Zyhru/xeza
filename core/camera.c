@@ -1,5 +1,4 @@
 #include "camera.h"
-#include <cglm/vec3.h>
 
 void camera_init(camera_t* cam) {
     cam->fov = 45.0f;
@@ -7,7 +6,7 @@ void camera_init(camera_t* cam) {
     
     cam->eye[0] = 0.0f;
     cam->eye[1] = 0.0f;
-    cam->eye[2] = 0.0f;
+    cam->eye[2] = 3.0f;
 
     cam->center[0] = 0.0f;
     cam->center[1] = 0.0f;

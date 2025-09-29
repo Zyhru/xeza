@@ -1,8 +1,6 @@
 #include "buffer.h"
 
 list_t* list_create(list_type_e type) {
-    //printf("Creating list of type: %d\n", type);
-
     list_t* list = malloc(sizeof(list_t));
     assert(list != NULL);
 
@@ -13,21 +11,27 @@ list_t* list_create(list_type_e type) {
     switch(list->type) {
         case VERTEX_BUFFER:
             list->bytes = sizeof(vertex_t);
-            printf("Byte size of list: %zu\n", list->bytes);
+            printf("Creating a VERTEX_BUFFER list\n");
+            printf("Size of list in bytes: %zu\n", list->bytes);
             break;
         case INDEX_BUFFER:
             list->bytes = sizeof(unsigned int);
-            printf("Size of list: %zu\n", list->bytes);
+            printf("Creating an INDEX_BUFFER list\n");
+            printf("Size of list in bytes: %zu\n", list->bytes);
+            break;
+        case OBJ_VERTEX_BUFFER:
+            list->bytes = sizeof(obj_vertex_t);
+            printf("Creating an OBJ_VERTEX_BUFFER list\n");
+            printf("Size of list in bytes: %zu\n", list->bytes);
             break;
         default:
             fprintf(stderr, "Invalid list type!\n");
             break; 
     }
    
-    list->addr = (void *)malloc(list->bytes * list->size);
+    assert(list->bytes >= 0);
+    list->addr = (void *)malloc(list->bytes * list->capacity);
     assert(list->addr != NULL);
-
-    //printf("Successfully created list\n");
     return list;
 }
 
@@ -41,7 +45,7 @@ void list_append(list_t* list, void* data) {
     }
 
     // TODO: Fix this. Am I doing this well?
-    void* ptr = list->addr + list->size * list->bytes;
+    uint8_t* ptr = list->addr + list->size * list->bytes;
     memcpy(ptr, data, list->bytes);
     list->size++;
 }
@@ -61,6 +65,15 @@ void list_print(list_t* list) {
             for (int i = 0; i < list->size; i++) {
                 unsigned int index = ((unsigned int *)list->addr)[i];
                 printf("%d: %d\n", i, index);
+            }
+            break;
+        case OBJ_VERTEX_BUFFER:
+            printf("OBJ Vertex Buffer List size: %d\n", list->size);
+            for (int i = 0; i < list->size; i++) {
+                obj_vertex_t vertex = ((obj_vertex_t *)list->addr)[i];
+                printf("%d: v {%f, %f, %f}\n", i, vertex.v.x, vertex.v.y, vertex.v.z);
+                printf("%d: vt {%f, %f}\n", i, vertex.vt.x, vertex.vt.y);
+                printf("%d: vn {%f, %f, %f}\n", i, vertex.vn.x, vertex.vn.y, vertex.vn.z);
             }
             break;
         default:

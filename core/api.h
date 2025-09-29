@@ -5,10 +5,12 @@
 #include <GLFW/glfw3.h>
 
 #include <stdlib.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
 #include <cglm/cglm.h>
+#include <unistd.h>
 
 #define DEBUG 0
 

@@ -6,18 +6,27 @@
 
 #define LIST_CAPACITY 50
 
+// non-obj object
 typedef struct { 
     vec3_t pos;
     vec3_t color;
+    //vec2_t texcoords;
 } vertex_t;
+
+typedef struct { 
+    vec3_t v;
+    vec2_t vt;
+    vec3_t vn;
+} obj_vertex_t;
 
 typedef enum {
     VERTEX_BUFFER,
+    OBJ_VERTEX_BUFFER,
     INDEX_BUFFER
 } list_type_e;
 
 typedef struct {
-    void* addr;
+    uint8_t* addr;
     int size;
     int capacity;
     size_t bytes;

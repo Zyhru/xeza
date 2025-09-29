@@ -16,8 +16,14 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Invalid file extension! Must be of type .obj\n");
         return -1;
     }
+
+    // does .obj file exists
+    if(access(obj_file, F_OK) == -1) {
+        fprintf(stderr, "%s does not exist.\n", obj_file);
+        return -1;
+    }
     
-    gfx_init_pipeline(obj_file);
+    init(obj_file);
     
     free(file_ext); 
     return 0;

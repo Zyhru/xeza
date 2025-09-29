@@ -1,3 +1,3 @@
 #!/bin/bash
 make
-./xeza cube.obj
+./xeza obj_models/cube.obj

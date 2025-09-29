@@ -18,6 +18,7 @@ void renderer_init(renderer_t* r) {
     }
     
     r->shd = shader; // all thats being copied over is the program
+    //gl_create_object(&r->object);
    
     // for testing, we'll have a predefined triangle
     #if 0
@@ -47,13 +48,12 @@ void renderer_use_shader(renderer_t *r) {
 
 void renderer_draw(renderer_t* r) {
     glBindVertexArray(r->object.vao);
-    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, r->object.index_buff->size, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 
 void renderer_create_cube(renderer_t* r) {
     gl_t cube;
-    
     cube.vertex_buff = list_create(VERTEX_BUFFER);
     cube.index_buff = list_create(INDEX_BUFFER);
   
@@ -65,7 +65,6 @@ void renderer_create_cube(renderer_t* r) {
     list_append(cube.vertex_buff, &(vertex_t){.pos = { 0.5f, -0.5f, -0.5f}, .color = {1.0f, 0.0f, 0.0f}}); // 5
     list_append(cube.vertex_buff, &(vertex_t){.pos = { 0.5f, -0.5f,  0.5f}, .color = {0.0f, 1.0f, 0.0f}}); // 6
     list_append(cube.vertex_buff, &(vertex_t){.pos = {-0.5f, -0.5f,  0.5f}, .color = {1.0f, 1.0f, 0.0f}}); // 7
-
 
     unsigned int index_buffer[] = {
       // Front face  
@@ -98,7 +97,6 @@ void renderer_create_cube(renderer_t* r) {
     for(size_t i = 0; i < index_length; i++) {
         list_append(cube.index_buff, (unsigned int *)&index_buffer[i]);
     }
-
 
     gl_create_object(&cube);
     r->object = cube;

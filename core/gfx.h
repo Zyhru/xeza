@@ -5,7 +5,11 @@
 #include "renderer.h"
 #include "window.h"
 #include "camera.h"
+#include "obj.h"
 
-void gfx_init_pipeline(char* obj_file);
+void init(char* obj_file);
+void update();
+void render();
+void destroy();
 
 #endif

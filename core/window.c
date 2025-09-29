@@ -1,6 +1,12 @@
 #include "window.h"
+#include "api.h"
+#include <GLFW/glfw3.h>
 
 #define TEST_SCALE_FACTOR 0.5f
+
+static void _fb_resize_cb(GLFWwindow* window, int width, int height) {
+    glViewport(0,0, width, height);
+}
 
 /**
  * @brief Initialize GLFW and glad 
@@ -32,6 +38,9 @@ void window_init(window_t* window) {
         exit(1);
     }
 
+    // callbacks
+    glfwSetFramebufferSizeCallback(window->win, _fb_resize_cb);
+
     glfwMakeContextCurrent(window->win); // this must be active first, before any gl calls
 
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -62,7 +71,4 @@ void window_loop(window_t* self) {
     }
 
     self->destroy();
-
-    glfwDestroyWindow(self->win);
-    glfwTerminate();
 }
