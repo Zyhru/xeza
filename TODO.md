@@ -1,5 +1,5 @@
 ## Backlog 
-- [x] Build system
+- [ ] Report each commit and explain what was fix/changed
 - [ ] Parse OBJ models 
     - [ ] Support parsing one object
     - [ ] Support parsing multiple objects
@@ -24,6 +24,7 @@
     - [x] Render submission 
     - [x] Utils 
 - [x] Dynamic List appending (Keep reviewing this though)
+- [x] Build system
 
 ## 9/29/2025 
 - [x] Fix malloc issues (buffer.c)
