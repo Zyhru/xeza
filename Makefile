@@ -1,5 +1,11 @@
-all:
-	gcc -Wall -Wextra -O2 -DEBUG -g main.c vendor/glad.c core/*.c core/util/*c -o xeza -lglfw -lGL -lm
+debug:
+	gcc -Wall -Wextra -O2 -DDEBUG -g main.c vendor/glad.c core/*.c core/util/*c -o xeza_debug -lglfw -lGL -lm
 
-clean:
-	rm -f xeza 
+release:
+	gcc -Wall -Wextra -O2 -DRELEASE -g main.c vendor/glad.c core/*.c core/util/*c -o xeza_release -lglfw -lGL -lm
+
+clean_debug:
+	rm -f xeza_debug
+
+clean_release:
+	rm -f xeza_release

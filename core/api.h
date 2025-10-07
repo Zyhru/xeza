@@ -12,6 +12,4 @@
 #include <cglm/cglm.h>
 #include <unistd.h>
 
-#define DEBUG 0
-
 #endif

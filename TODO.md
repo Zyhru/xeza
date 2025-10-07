@@ -1,4 +1,5 @@
 ## Backlog 
+- [x] Create an option to render obj files and non-obj files
 - [ ] Report each commit and explain what was fix/changed
 - [ ] Parse OBJ models 
     - [ ] Support parsing one object
@@ -16,6 +17,7 @@
         - [x] Render Cube 
     - [ ] Camera 
         - [x] Move Around (WASD) 
+        - [ ] Move object around with mouse
         - [ ] Look Around (Mouse) 
     - [ ] Textures 
     - [ ] Logger 
@@ -25,6 +27,32 @@
     - [x] Utils 
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Build system
+
+## 10/07/2025 
+- [x] Create VBO based on faces without an index buffer
+- [ ] Use an index buffer to optimize the rendering
+
+* NOTE: tinyobj-loader-c will give me the faces in 
+triangulated way
+
+example:
+
+f 1 2 3 4
+
+will be: 
+
+1 2 3 -> 0
+1 3 4 -> 1
+
+Another example:
+
+f 1/1/1 2/2/2 3/3/3 4/4/4
+1/1/1 2/2/2 3/3/3
+1/1/1 3/3/3 4/4/4
+
+1. Based on the vertex index, create a OBJVertex (custom data structure)
+and place into VBO.
+
 
 ## 9/29/2025 
 - [x] Fix malloc issues (buffer.c)

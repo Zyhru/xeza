@@ -44,7 +44,6 @@ void list_append(list_t* list, void* data) {
         list->capacity = new_capacity;
     }
 
-    // TODO: Fix this. Am I doing this well?
     uint8_t* ptr = list->addr + list->size * list->bytes;
     memcpy(ptr, data, list->bytes);
     list->size++;

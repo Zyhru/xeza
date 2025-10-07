@@ -5,7 +5,7 @@ void camera_init(camera_t* cam) {
     cam->speed = 1.5f;
     
     cam->eye[0] = 0.0f;
-    cam->eye[1] = 0.0f;
+    cam->eye[1] = 0.5f;
     cam->eye[2] = 3.0f;
 
     cam->center[0] = 0.0f;

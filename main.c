@@ -8,7 +8,9 @@ int main(int argc, char** argv) {
         fprintf(stderr, "usage: xeza <obj file>\n");
         return -1;
     }
-    
+   
+    #if defined(RELEASE)
+    printf("RELEASE MODE\n");
     char* obj_file = argv[CLI_ARGUMENT_ONE];
     char* file_ext = util_extdup(obj_file); // extracting extension
     
@@ -24,7 +26,11 @@ int main(int argc, char** argv) {
     }
     
     init(obj_file);
-    
     free(file_ext); 
+    #elif defined(DEBUG)
+    printf("DEBUG MODE\n");
+    init(NULL);
+    #endif
+    
     return 0;
 }

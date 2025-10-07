@@ -11,7 +11,6 @@ void update() {
     float current_frame = glfwGetTime();
     delta_time = current_frame - last_frame;
     last_frame = current_frame;
-    
 
     renderer_use_shader(&state.renderer); // possibly be moved to render?
   
@@ -29,7 +28,11 @@ void update() {
 }
 
 void render() {
+    #if defined(DEBUG)
     renderer_draw(&state.renderer);
+    #elif defined(RELEASE)
+    renderer_draw_obj(&state.renderer);
+    #endif
 }
 
 void destroy() {
@@ -42,12 +45,18 @@ void destroy() {
 
 void init(char *obj_file) {
     printf("Initializing Xeza.\n");
-    printf("Parsing: %s\n", obj_file);
+    
+    renderer_t renderer;
 
     // TODO: Parse obj file 
     //INFO: Currently debugging to understand how tinyobj-loader-c works
-    //gl_t obj_model;
-    //obj_load(&obj_model, obj_file);
+    
+    #if defined(RELEASE)
+    printf("Parsing: %s\n", obj_file);
+    gl_t obj_model;
+    obj_load(&obj_model, obj_file);
+    renderer.object = obj_model;
+    #endif
 
     input_t input = {0};
 
@@ -57,8 +66,6 @@ void init(char *obj_file) {
     window.destroy = destroy;
     window_init(&window);
     
-    renderer_t renderer;
-    //renderer.object = obj_model;
     renderer_init(&renderer);
 
     camera_t camera;

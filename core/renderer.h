@@ -12,9 +12,16 @@ typedef struct {
 
 // we are initializing the shader, camera, texture, and model?
 void renderer_init(renderer_t* r);
+
+/* draw */
 void renderer_draw(renderer_t* r);
+void renderer_draw_obj(renderer_t* r);
+
 void renderer_use_shader(renderer_t *r);
+
+/* create */
 void renderer_create_cube(renderer_t *r);
+void renderer_create_obj(renderer_t* r);
 
 /*
 *

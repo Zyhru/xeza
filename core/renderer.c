@@ -1,6 +1,7 @@
 #include "renderer.h"
 #include "api.h"
 #include "buffer.h"
+#include "gl_core.h"
 #include <stdio.h>
 
 
@@ -11,35 +12,29 @@
 void renderer_init(renderer_t* r) {
     puts("Initialzing renderer.");
     shader_t shader;
+
+    #if defined(RELEASE)
+    printf("Using obj shaders\n");
+    int shd_res = shader_init("shaders/obj_vertex.glsl", "shaders/obj_fragment.glsl", &shader);
+    if (shd_res == -1) {
+        fprintf(stderr, "Failed to initalize shader");
+        exit(1);
+    }
+   
+    renderer_create_obj(r);
+    
+    #elif defined(DEBUG)
+    printf("Using debug shaders\n");
     int shd_res = shader_init("shaders/vertex.glsl", "shaders/fragment.glsl", &shader);
     if (shd_res == -1) {
         fprintf(stderr, "Failed to initalize shader");
         exit(1);
     }
-    
-    r->shd = shader; // all thats being copied over is the program
-    //gl_create_object(&r->object);
-   
-    // for testing, we'll have a predefined triangle
-    #if 0
-    //gl_t triangle;
-    triangle.vertex_buff = list_create(3, VERTEX_BUFFER);
 
-    vertex_t v1 = { {0.0f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f} };
-    vertex_t v2 = { {-0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f} };
-    vertex_t v3 = { {0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f} };
-    
-    list_append(triangle.vertex_buff, &v1);
-    list_append(triangle.vertex_buff, &v2);
-    list_append(triangle.vertex_buff, &v3);
-
-    //printf("List size: %d\n", triangle.vertex_buff->size); 
-    list_print(triangle.vertex_buff);
-
-    gl_create_object(&triangle);
+    renderer_create_cube(r);
     #endif
     
-    renderer_create_cube(r);
+    r->shd = shader; 
 }
 
 void renderer_use_shader(renderer_t *r) {
@@ -49,6 +44,12 @@ void renderer_use_shader(renderer_t *r) {
 void renderer_draw(renderer_t* r) {
     glBindVertexArray(r->object.vao);
     glDrawElements(GL_TRIANGLES, r->object.index_buff->size, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+}
+
+void renderer_draw_obj(renderer_t* r) {
+    glBindVertexArray(r->object.vao);
+    glDrawArrays(GL_TRIANGLES, 0, r->object.vertex_buff->size);
     glBindVertexArray(0);
 }
 
@@ -101,18 +102,10 @@ void renderer_create_cube(renderer_t* r) {
     gl_create_object(&cube);
     r->object = cube;
 
-    #ifdef DEBUG
     list_print(r->object.vertex_buff);
     list_print(r->object.index_buff);
-    #endif
 }
 
-
-// Idea
-// Have a function that will take in a vbo, index buffer usage, and 
-// automate the construction of an index buffer.
-//
-// well it wouldn't work because that's when the idea of different model objects
-// come into play.
-//
-// for the cube just manually write it
+void renderer_create_obj(renderer_t* r) {
+    gl_create_object(&r->object);
+}

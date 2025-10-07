@@ -18,6 +18,10 @@ typedef struct {
     transform_t transform;
 } gl_t;
 
+typedef struct { 
+    gl_t* meshes;
+} model_t;
+
 void gl_create_object(gl_t* object);
 void gl_init_transform(gl_t* object);
 void gl_apply_transform(gl_t* object, mat4* model);
