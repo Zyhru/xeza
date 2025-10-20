@@ -71,6 +71,6 @@ void gl_init_transform(gl_t* object) {
 void gl_apply_transform(gl_t *object, mat4* model) {
     vec3 axis = {0.5f, 0.5f, 0.5f};
     glm_translate(*model, object->transform.pos);
-    //glm_rotate(*model, glm_rad(object->transform.angle) * glfwGetTime(), axis);
+    glm_rotate(*model, glm_rad(object->transform.angle) * glfwGetTime(), axis);
     //glm_scale(*model, object->transform.scale);
 }

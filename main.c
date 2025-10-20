@@ -8,6 +8,7 @@ int main(int argc, char** argv) {
         fprintf(stderr, "usage: xeza <obj file>\n");
         return -1;
     }
+
    
     #if defined(RELEASE)
     printf("RELEASE MODE\n");

@@ -28,6 +28,59 @@
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Build system
 
+## 10/18/2025
+
+- [ ] Figure out why I'm getting 25 vertices instead of 24.
+Make steps of inserting clean by cleaning up the print 
+
+psuedo-code:
+    When inserting a key make sure to print out the key that is being inserted
+    Find the key, if not found report that.
+    Otherwise say we found the key
+
+## 10/16/2025
+- [ ] Implement regrow
+
+When I'm regrowing the hash table 
+we need to move the entries to another array by grabbing
+it's current index and setting the entry to the index 
+in the new arra
+
+
+## 10/12/2025 (For later)
+- [ ] Write ht_find function
+- [ ] Write ht_print function
+- [ ] Finally use index buffer
+
+## 10/11/2025 (For later)
+- [ ] Work on creating an index buffer 
+    - [ ] Implement a hashmap
+        - [x] create func 
+        - [x] add func 
+        - [x] hashing func 
+        - [ ] printing out hashmap (iterator) func
+        - [ ] find func (read more on this)
+        - [ ] regrow (internal) func (read more on this)
+        - [ ] test 
+
+## 10/10/2025 
+- [ ] Design on how to implement rotating objects
+with mouse.  (*Rotate and drag*)
+
+- [ ] Work on creating an index buffer 
+    - [ ] Implement a hashmap
+        - [ ] create func 
+        - [ ] add func 
+        - [ ] find func 
+        - [ ] regrow (internal) func
+- [ ] Write a texture system
+- [ ] Study on Normals/Lighting
+
+## 10/09/2025 
+- [x] Clean up obj code for creating vbo
+- [ ] Rotate objects with mouse
+- [ ] Use an index buffer
+
 ## 10/07/2025 
 - [x] Create VBO based on faces without an index buffer
 - [ ] Use an index buffer to optimize the rendering
@@ -52,7 +105,6 @@ f 1/1/1 2/2/2 3/3/3 4/4/4
 
 1. Based on the vertex index, create a OBJVertex (custom data structure)
 and place into VBO.
-
 
 ## 9/29/2025 
 - [x] Fix malloc issues (buffer.c)
@@ -92,3 +144,8 @@ learnopengl.com
 
 NOTE: I want to get a basic system down first, and see from there what will need to be refactored
 and if I need to change/add components.
+
+
+## Today
+
+Fix the the hash table

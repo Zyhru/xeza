@@ -54,7 +54,11 @@ void init(char *obj_file) {
     #if defined(RELEASE)
     printf("Parsing: %s\n", obj_file);
     gl_t obj_model;
-    obj_load(&obj_model, obj_file);
+    if(obj_load(&obj_model, obj_file) == 1) {
+        fprintf(stderr, "Failed to load obj file: %s\n", obj_file);
+        return;
+    }
+
     renderer.object = obj_model;
     #endif
 
