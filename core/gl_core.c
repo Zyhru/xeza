@@ -6,17 +6,13 @@
 
 void gl_create_object(gl_t* object) {
     assert(object->vertex_buff != NULL);
-    
-   // assert(object->index_buff != NULL);
-
-    //printf("Size of Index Buffer: %d\n", object->index_buff->size);
-    //printf("Size of Vertex Buffer: %d\n", object->vertex_buff->size);
+    assert(object->index_buff != NULL);
    
     gl_init_transform(object);
 
     /* Creating GL Object */
     glGenBuffers(1, &object->vbo); 
-    glGenBuffers(1, &object->ebo); // This is going to generate everytime! Oops..
+    glGenBuffers(1, &object->ebo);
     glGenVertexArrays(1, &object->vao);
 
     /* Creating a new state for the newly created objects*/
@@ -42,11 +38,14 @@ void gl_create_object(gl_t* object) {
     #elif defined(RELEASE)
     printf("[RELEASE] Renderer submission\n");
     glBindBuffer(GL_ARRAY_BUFFER, object->vbo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->ebo);
+    
     glBufferData(GL_ARRAY_BUFFER, sizeof(obj_vertex_t) * object->vertex_buff->size, (obj_vertex_t *)object->vertex_buff->addr, GL_STATIC_DRAW);
-    //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * object->index_buff->size, (unsigned int*) object->index_buff->addr, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * object->index_buff->size, (unsigned int*)object->index_buff->addr, GL_STATIC_DRAW);
     
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(obj_vertex_t), (void *) offsetof(obj_vertex_t, v));
     glEnableVertexAttribArray(0);
+    printf("Set up vertex specification\n");
     #endif
 }
 

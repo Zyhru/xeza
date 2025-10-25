@@ -1,3 +1,4 @@
+#include "buffer.h"
 #include <stdint.h>
 #define TINYOBJ_LOADER_C_IMPLEMENTATION
 #include "../vendor/tinyobj_loader_c.h" 
@@ -175,7 +176,6 @@ int obj_load(gl_t* object, const char* obj_file) {
     
     size_t face_offset = 0;
     uint32_t value = 0;
-    uint32_t count  = 0;
     list_t* vb = list_create(OBJ_VERTEX_BUFFER);
     list_t* ib = list_create(INDEX_BUFFER);
     
@@ -198,9 +198,6 @@ int obj_load(gl_t* object, const char* obj_file) {
 
         // ======================================================= //
         obj_vertex_t vertex[3] = {0};
-        // x y z = 0
-        // x y z = 1
-        // x y z = 2
         face_t face_indices[3] = {0};
         unsigned int pos_vertices[3] = {idx0.v_idx, idx1.v_idx, idx2.v_idx};
         for(int i = 0; i < 3; ++i) {
@@ -249,25 +246,30 @@ int obj_load(gl_t* object, const char* obj_file) {
             key.vt = face.vt;
             key.vn = face.vn;
             printf("Face being processed: {%u/%u/%u}\n", key.v, key.vt, key.vn);
-            if(!ht_find(table, key)) {
+           
+            // insert the index into the index buffer if not found
+            // if found then find the value based on key
+            entry_t* e_ptr = ht_find(table, key);
+            if(e_ptr == NULL) {
                 ht_insert(table, (entry_t){key,value});
+                list_append(ib, (unsigned int *)&value);
+                list_append(vb, (obj_vertex_t*)&vertex[i]);
                 value += 1;
+            } else {
+                list_append(ib, (unsigned int *)&e_ptr->value);
             }
-
-            count++;
-            //obj_vertex_t v = vertex[i];
         }
        
         face_offset += 3;
     }
 
-    ht_print(table);
-    //printf("Hash Table Size: %zu\n", table->size);
+    //ht_print_table(table);
     
-    //object->vertex_buff = vb;
-    //list_print(object->vertex_buff);
-    //object->index_buff = ib;
-    //list_print(object->index_buff);
+    object->vertex_buff = vb;
+    object->index_buff = ib;
+    list_print(object->vertex_buff);
+    list_print(object->index_buff);
+    
     ht_free(table);
     tinyobj_attrib_free(&attributes);
     tinyobj_shapes_free(shapes, num_shapes);
@@ -275,11 +277,4 @@ int obj_load(gl_t* object, const char* obj_file) {
     return TINYOBJ_SUCCESS;
 }
 
-
-
 //TODO: Add an index buffer when parsing obj file for better optimization.
-//
-// Use a hashmap to store unique vertices when creating my vbo
-
-// Can I create my index buffer as Im making my VBO since it'll only store
-// unique vertices, therfore storing the current index?

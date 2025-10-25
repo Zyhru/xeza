@@ -2,10 +2,11 @@
 - [x] Create an option to render obj files and non-obj files
 - [ ] Report each commit and explain what was fix/changed
 - [ ] Parse OBJ models 
-    - [ ] Support parsing one object
-    - [ ] Support parsing multiple objects
-    - [ ] Test parsing mechanism with a simple obj file
-    - [ ] Test parsing mechanism with a more complex obj file
+    - [x] Support parsing one object
+    - [x] Support parsing multiple objects
+    - [x] Test parsing mechanism with a simple obj file
+    - [x] Test parsing mechanism with a more complex obj file
+    - [ ] Parse materials and apply textures to the object
 - [x] Add option to close the window with the ESC key
 - [x] Add check to see if .obj file exists 
 - [ ] Core system 
@@ -27,6 +28,10 @@
     - [x] Utils 
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Build system
+
+## 10/21/2025
+
+- [x] Create VBO and EBO based on Hash Table
 
 ## 10/18/2025
 
@@ -144,8 +149,3 @@ learnopengl.com
 
 NOTE: I want to get a basic system down first, and see from there what will need to be refactored
 and if I need to change/add components.
-
-
-## Today
-
-Fix the the hash table

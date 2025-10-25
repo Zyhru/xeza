@@ -13,6 +13,9 @@ void renderer_init(renderer_t* r) {
     puts("Initialzing renderer.");
     shader_t shader;
 
+    printf("RENDERER INIT: INDEX BUFFER SIZE = %d\n", r->object.index_buff->size);
+    printf("RENDERER INIT: VERTEX BUFFER SIZE = %d\n", r->object.vertex_buff->size);
+
     #if defined(RELEASE)
     printf("Using obj shaders\n");
     int shd_res = shader_init("shaders/obj_vertex.glsl", "shaders/obj_fragment.glsl", &shader);
@@ -49,7 +52,7 @@ void renderer_draw(renderer_t* r) {
 
 void renderer_draw_obj(renderer_t* r) {
     glBindVertexArray(r->object.vao);
-    glDrawArrays(GL_TRIANGLES, 0, r->object.vertex_buff->size);
+    glDrawElements(GL_TRIANGLES, r->object.index_buff->size, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 
