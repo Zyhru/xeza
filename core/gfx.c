@@ -1,5 +1,6 @@
 #include "gfx.h"
-#include "state.h"
+#include "shader.h"
+#include "state.h" // change how this is being included
 
 // global state
 state_t state;
@@ -19,28 +20,39 @@ void update() {
 
     mat4 model;
     glm_mat4_identity(model);
-    gl_apply_transform(&state.renderer.object, &model);
+
+    //for(int i = 0; i < state.renderer.model.num_of_meshes; ++i) {
+        //gl_apply_transform(&state.renderer.model.meshes[i], &model, delta_time);
+    //}
 
     mat4 mvp;
     glm_mat4_mul(state.camera.perspective, state.camera.view, mvp); // model * view -> mvp
     glm_mat4_mul(mvp, model, mvp);
     shader_mat4_uniform(state.renderer.shd.program, "mvp", mvp);
+
+    // apply the color here
+    //shader_vec3_uniform(state.renderer.shd.program, "random_color", 
+                        //state.renderer.object.random_color);
 }
 
 void render() {
     #if defined(DEBUG)
     renderer_draw(&state.renderer);
     #elif defined(RELEASE)
-    renderer_draw_obj(&state.renderer);
+    renderer_draw_model(&state.renderer);
     #endif
 }
 
 void destroy() {
-    list_destroy(state.renderer.object.vertex_buff);
-    list_destroy(state.renderer.object.index_buff);
+    model_t model = state.renderer.model;
+    for (int i = 0; i < model.num_of_meshes; ++i) {
+        list_destroy(model.meshes[i].vertex_buff);
+        list_destroy(model.meshes[i].index_buff);
+    }
+
     glfwDestroyWindow(state.window.win);
     glfwTerminate();
-    printf("Freeing all renderer resources\n");
+    printf("Destroyed everything.\n");
 }
 
 void init(char *obj_file) {
@@ -48,18 +60,15 @@ void init(char *obj_file) {
     
     renderer_t renderer;
 
-    // TODO: Parse obj file 
-    //INFO: Currently debugging to understand how tinyobj-loader-c works
-    
     #if defined(RELEASE)
+    model_t model;
     printf("Parsing: %s\n", obj_file);
-    gl_t obj_model;
-    if(obj_load(&obj_model, obj_file) == 1) {
+    if(obj_load(&model, obj_file) == 1) {
         fprintf(stderr, "Failed to load obj file: %s\n", obj_file);
         return;
     }
-
-    renderer.object = obj_model;
+    
+    renderer.model = model;
     #endif
 
     input_t input = {0};
@@ -71,10 +80,10 @@ void init(char *obj_file) {
     window_init(&window);
     
     renderer_init(&renderer);
-
+    
     camera_t camera;
     camera_init(&camera);
-
+    
     // passing components to global state
     state.camera = camera;
     state.renderer = renderer;

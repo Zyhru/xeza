@@ -2,6 +2,7 @@
 #define SHADER_H 
 
 #include "api.h"
+#include "math.h"
 
 #define INFO_LOG_SIZE 512
 
@@ -22,6 +23,7 @@ void shader_compilation_error(GLenum shader_type, char *shader_name, unsigned in
 
 // set shader uniforms
 void shader_mat4_uniform(GLuint program, char* name, mat4 matrix);
+void shader_vec3_uniform(GLuint program, char* name, vec3_t value);
 
 // check for errors
 

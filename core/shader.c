@@ -73,3 +73,8 @@ void shader_mat4_uniform(GLuint program, char* name, mat4 matrix) {
     unsigned int location = glGetUniformLocation(program, name);
     glUniformMatrix4fv(location, 1, GL_FALSE, (float *) matrix);
 }
+
+void shader_vec3_uniform(GLuint program, char* name, vec3_t value) {
+    unsigned int location = glGetUniformLocation(program, name);
+    glUniform3f(location, value.x, value.y, value.z);
+}

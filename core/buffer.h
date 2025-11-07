@@ -10,7 +10,7 @@
 typedef struct { 
     vec3_t pos;
     vec3_t color;
-    //vec2_t texcoords;
+    vec2_t texcoords;
 } vertex_t;
 
 typedef struct { 

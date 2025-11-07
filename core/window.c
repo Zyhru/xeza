@@ -29,7 +29,7 @@ void window_init(window_t* window) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, window->min_version);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, window->max_version);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    //glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     window->win = glfwCreateWindow(window->width, window->height, window->title, NULL, NULL);
     if (!window->win) {
@@ -59,6 +59,8 @@ void window_init(window_t* window) {
 
 void window_loop(window_t* self) {
     glEnable(GL_DEPTH_TEST);
+    
+
     while(!glfwWindowShouldClose(self->win)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.2f, 0.5f, 0.6f, 1.0f);

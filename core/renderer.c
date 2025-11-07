@@ -13,8 +13,9 @@ void renderer_init(renderer_t* r) {
     puts("Initialzing renderer.");
     shader_t shader;
 
-    printf("RENDERER INIT: INDEX BUFFER SIZE = %d\n", r->object.index_buff->size);
-    printf("RENDERER INIT: VERTEX BUFFER SIZE = %d\n", r->object.vertex_buff->size);
+
+    //printf("RENDERER INIT: INDEX BUFFER SIZE = %d\n", r->object.index_buff->size);
+    //printf("RENDERER INIT: VERTEX BUFFER SIZE = %d\n", r->object.vertex_buff->size);
 
     #if defined(RELEASE)
     printf("Using obj shaders\n");
@@ -23,7 +24,7 @@ void renderer_init(renderer_t* r) {
         fprintf(stderr, "Failed to initalize shader");
         exit(1);
     }
-   
+  
     renderer_create_obj(r);
     
     #elif defined(DEBUG)
@@ -50,10 +51,12 @@ void renderer_draw(renderer_t* r) {
     glBindVertexArray(0);
 }
 
-void renderer_draw_obj(renderer_t* r) {
-    glBindVertexArray(r->object.vao);
-    glDrawElements(GL_TRIANGLES, r->object.index_buff->size, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+void renderer_draw_model(renderer_t* r) {
+    for(int i = 0; i < r->model.num_of_meshes; ++i) {
+        glBindVertexArray(r->model.meshes[i].vao);
+        glDrawElements(GL_TRIANGLES, r->model.meshes[i].index_buff->size, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+    }
 }
 
 void renderer_create_cube(renderer_t* r) {
@@ -110,5 +113,7 @@ void renderer_create_cube(renderer_t* r) {
 }
 
 void renderer_create_obj(renderer_t* r) {
-    gl_create_object(&r->object);
+    for(int i = 0; i < r->model.num_of_meshes; ++i) {
+        gl_create_object(&r->model.meshes[i]);
+    }
 }

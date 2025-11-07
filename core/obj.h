@@ -3,9 +3,9 @@
 
 #include "buffer.h"
 #include "gl_core.h"
-#include "hash_table.h"
 
-int obj_load(gl_t* object, const char* obj_file);
+int obj_load(model_t* object, const char* obj_file);
+int obj_load_test(model_t* object, const char* obj_file);
 
 #endif // OBJ_H
 //

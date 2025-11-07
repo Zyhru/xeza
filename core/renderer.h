@@ -8,6 +8,7 @@
 typedef struct {
     shader_t shd;
     gl_t object;
+    model_t model;
 } renderer_t;
 
 // we are initializing the shader, camera, texture, and model?
@@ -15,8 +16,7 @@ void renderer_init(renderer_t* r);
 
 /* draw */
 void renderer_draw(renderer_t* r);
-void renderer_draw_obj(renderer_t* r);
-
+void renderer_draw_model(renderer_t* r);
 void renderer_use_shader(renderer_t *r);
 
 /* create */

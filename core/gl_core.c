@@ -17,6 +17,10 @@ void gl_create_object(gl_t* object) {
 
     /* Creating a new state for the newly created objects*/
     glBindVertexArray(object->vao);
+
+    /* load texture */
+    //texture_t texture = {0};
+    //texture->image 
    
     #if defined(DEBUG)
     printf("[DEBUG] Renderer submission\n");
@@ -36,7 +40,7 @@ void gl_create_object(gl_t* object) {
     glEnableVertexAttribArray(1);
    
     #elif defined(RELEASE)
-    printf("[RELEASE] Renderer submission\n");
+    //printf("[RELEASE] Renderer submission for mesh: {%s}\n", object->name);
     glBindBuffer(GL_ARRAY_BUFFER, object->vbo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->ebo);
     
@@ -45,7 +49,7 @@ void gl_create_object(gl_t* object) {
     
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(obj_vertex_t), (void *) offsetof(obj_vertex_t, v));
     glEnableVertexAttribArray(0);
-    printf("Set up vertex specification\n");
+    printf("Finished renderer submission!\n");
     #endif
 }
 
@@ -67,9 +71,9 @@ void gl_init_transform(gl_t* object) {
     #endif
 }
 
-void gl_apply_transform(gl_t *object, mat4* model) {
-    vec3 axis = {0.5f, 0.5f, 0.5f};
+void gl_apply_transform(gl_t *object, mat4* model, float dt) {
+    vec3 axis = {0.0f, 0.1f, 0.0f};
     glm_translate(*model, object->transform.pos);
-    glm_rotate(*model, glm_rad(object->transform.angle) * glfwGetTime(), axis);
-    //glm_scale(*model, object->transform.scale);
+    //glm_rotate(*model, glm_rad(object->transform.angle) * glfwGetTime(),  axis);
+    glm_scale(*model, object->transform.scale);
 }
