@@ -2,6 +2,7 @@
 #include "api.h"
 #include "buffer.h"
 #include "gl_core.h"
+#include <cglm/mat4.h>
 #include <stdio.h>
 
 
@@ -46,8 +47,8 @@ void renderer_use_shader(renderer_t *r) {
 }
 
 void renderer_draw(renderer_t* r) {
-    glBindVertexArray(r->object.vao);
-    glDrawElements(GL_TRIANGLES, r->object.index_buff->size, GL_UNSIGNED_INT, 0);
+    //glBindVertexArray(r->object.vao);
+    //glDrawElements(GL_TRIANGLES, r->object.index_buff->size, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 
@@ -60,7 +61,7 @@ void renderer_draw_model(renderer_t* r) {
 }
 
 void renderer_create_cube(renderer_t* r) {
-    gl_t cube;
+    mesh_t cube;
     cube.vertex_buff = list_create(VERTEX_BUFFER);
     cube.index_buff = list_create(INDEX_BUFFER);
   
@@ -106,14 +107,15 @@ void renderer_create_cube(renderer_t* r) {
     }
 
     gl_create_object(&cube);
-    r->object = cube;
+    //r->object = cube;
 
-    list_print(r->object.vertex_buff);
-    list_print(r->object.index_buff);
+    //list_print(r->object.vertex_buff);
+    //list_print(r->object.index_buff);
 }
 
 void renderer_create_obj(renderer_t* r) {
-    for(int i = 0; i < r->model.num_of_meshes; ++i) {
-        gl_create_object(&r->model.meshes[i]);
+    model_t m = r->model;
+    for(int i = 0; i < m.num_of_meshes; ++i) {
+        gl_create_object(&m.meshes[i]);
     }
 }

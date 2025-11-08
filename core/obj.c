@@ -146,7 +146,7 @@ int obj_load(model_t* model, const char* obj_file) {
             return 1;
         }
         model->num_of_meshes = num_shapes;
-        model->meshes = malloc(sizeof(gl_t) * model->num_of_meshes);
+        model->meshes = malloc(sizeof(mesh_t) * model->num_of_meshes);
         if(model->meshes == NULL) {
             fprintf(stderr, "Failed to allocate memory for model\n");
             return 1;

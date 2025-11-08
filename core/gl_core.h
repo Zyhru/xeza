@@ -16,18 +16,21 @@ typedef struct {
     unsigned int ebo;
     list_t* vertex_buff;
     list_t* index_buff; 
-    transform_t transform;
     vec3_t random_color;
-    char* name;
-} gl_t;
+    mat4 model_matrix;
+} mesh_t;
 
 typedef struct { 
-    gl_t* meshes;
+    mesh_t* meshes;
     size_t num_of_meshes;
+    mat4 model_matrix;
+    transform_t transform;
 } model_t;
 
-void gl_create_object(gl_t* object);
-void gl_init_transform(gl_t* object);
-void gl_apply_transform(gl_t* object, mat4* model, float dt);
+void gl_create_object(mesh_t* object);
+void gl_init_transform(model_t* model);
+void gl_apply_transform(model_t* model);
+
+//mat4 gl_lt_to_mt(transform_t* t1, transform_t* t2);
 
 #endif

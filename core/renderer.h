@@ -7,7 +7,6 @@
 
 typedef struct {
     shader_t shd;
-    gl_t object;
     model_t model;
 } renderer_t;
 

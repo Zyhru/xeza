@@ -9,7 +9,6 @@
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 
-
 typedef struct {
     int width;
     int height; 
@@ -29,6 +28,5 @@ void window_loop(window_t* self);
 void window_render();
 void window_init(window_t* window);
 void window_update();
-
 
 #endif
