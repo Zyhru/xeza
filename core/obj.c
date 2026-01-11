@@ -151,15 +151,20 @@ int obj_load(model_t* model, const char* obj_file) {
             fprintf(stderr, "Failed to allocate memory for model\n");
             return 1;
         }
-        
+       
+        // mesh <-> materials
         printf("No. of meshes {%zu}\n", model->num_of_meshes);
-
+        printf("No. of materials {%zu}\n", num_materials);
+        
+        /* for each mesh */
         for(size_t s = 0; s < num_shapes; ++s) {
+            int mat_index = attributes.material_ids[s];
             tinyobj_shape_t shape = shapes[s];
             size_t start = shape.face_offset;
             size_t end = shape.face_offset + shape.length;
            
-            //strcpy(model->meshes[s].name, shape.name);
+            printf("Material Index: %d\n", mat_index);
+            printf("Mesh Diffuse: %s\n", materials[mat_index].diffuse_texname);
             printf("Mesh Name = %s\n", shape.name);
             printf("Mesh Face Offset = %zu\n", start);
             printf("Mesh Length = %zu\n", end);
@@ -177,7 +182,8 @@ int obj_load(model_t* model, const char* obj_file) {
             }
 
             unsigned int value = 0;
-            
+          
+            // iterating through the faces of each mesh
             for(size_t i = start; i < end; ++i) {
                 tinyobj_vertex_index_t idx0 = attributes.faces[i * 3 + 0]; // f0
                 tinyobj_vertex_index_t idx1 = attributes.faces[i * 3 + 1]; // f1
@@ -265,6 +271,12 @@ int obj_load(model_t* model, const char* obj_file) {
             
             model->meshes[s].vertex_buff = vb;
             model->meshes[s].index_buff = ib;
+            model->meshes[s].texture.name = materials[mat_index].diffuse_texname;
+        }
+
+        for(int i = 0; i < model->num_of_meshes; ++i) {
+            mesh_t mesh = model->meshes[i];
+            printf("Mesh {%d} - Diffuse %s\n", i, mesh.texture.name);
         }
         
         ht_free(table);

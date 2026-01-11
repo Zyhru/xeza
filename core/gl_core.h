@@ -18,6 +18,7 @@ typedef struct {
     list_t* index_buff; 
     vec3_t random_color;
     mat4 model_matrix;
+    texture_t texture;
 } mesh_t;
 
 typedef struct { 

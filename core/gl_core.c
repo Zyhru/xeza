@@ -34,7 +34,7 @@ void gl_create_object(mesh_t* object) {
 }
 
 void gl_init_transform(model_t* model) {
-    vec3 position = {0.0f, 0.0f, -1.0f};
+    vec3 position = {0.0f, -0.1f, -0.8f};
     vec3 scale = {SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR};
     
     model->transform.angle = 90.0f;

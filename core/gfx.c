@@ -85,6 +85,7 @@ void update() {
 
     // apply the color here
     //shader_vec3_uniform(state.renderer.shd.program, "random_color", state.renderer.object.random_color);
+    //
 }
 
 void render() {
@@ -100,5 +101,5 @@ void destroy() {
 
     glfwDestroyWindow(state.window.win);
     glfwTerminate();
-    printf("Destroyed everything.\n");
+    printf("Destroyed everything. v1\n");
 }
