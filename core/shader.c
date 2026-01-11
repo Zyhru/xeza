@@ -78,3 +78,8 @@ void shader_vec3_uniform(GLuint program, char* name, vec3_t value) {
     unsigned int location = glGetUniformLocation(program, name);
     glUniform3f(location, value.x, value.y, value.z);
 }
+
+void shader_float_uniform(GLuint program, char* name, float value) {
+    unsigned int location = glGetUniformLocation(program, name);
+    glUniform1f(location, value);
+}

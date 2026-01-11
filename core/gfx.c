@@ -3,6 +3,8 @@
 #include "shader.h"
 #include "state.h" // change how this is being included
 #include <cglm/mat4.h>
+#include <cglm/util.h>
+#include <time.h>
 
 // global state
 state_t state;
@@ -14,8 +16,6 @@ void init(char *obj_file) {
     printf("Initializing Xeza.\n");
     
     renderer_t renderer;
-
-    #if defined(RELEASE)
     model_t model;
     printf("Parsing: %s\n", obj_file);
     if(obj_load(&model, obj_file) == 1) {
@@ -30,7 +30,6 @@ void init(char *obj_file) {
     
     renderer.model = model;
     gl_init_transform(&renderer.model);
-    #endif
 
     input_t input = {0};
 
@@ -55,10 +54,14 @@ void init(char *obj_file) {
     printf("Exiting renderer\n");
 }
 
+float val = 0.0f;
 void update() {
+    srand(time(NULL));
     float current_frame = glfwGetTime();
     delta_time = current_frame - last_frame;
     last_frame = current_frame;
+    float randomValue = (float)rand() / (float)RAND_MAX;
+    glm_clamp(randomValue, 0.0f, 1.0f);
 
     renderer_use_shader(&state.renderer); // possibly be moved to render?
   
@@ -78,17 +81,14 @@ void update() {
     glm_mat4_mul(state.camera.perspective, state.camera.view, mvp); // model * view -> mvp
     glm_mat4_mul(mvp, state.renderer.model.model_matrix, mvp);
     shader_mat4_uniform(state.renderer.shd.program, "mvp", mvp);
+    shader_float_uniform(state.renderer.shd.program, "time", randomValue);
 
     // apply the color here
     //shader_vec3_uniform(state.renderer.shd.program, "random_color", state.renderer.object.random_color);
 }
 
 void render() {
-    #if defined(DEBUG)
-    renderer_draw(&state.renderer);
-    #elif defined(RELEASE)
     renderer_draw_model(&state.renderer);
-    #endif
 }
 
 void destroy() {

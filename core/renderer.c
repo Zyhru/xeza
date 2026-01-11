@@ -5,20 +5,16 @@
 #include <cglm/mat4.h>
 #include <stdio.h>
 
-
 // Have some sort of renderer_create_primitive(enum);
-
 
 //INFO: initializing the shader, camera, texture, and model
 void renderer_init(renderer_t* r) {
     puts("Initialzing renderer.");
     shader_t shader;
 
-
     //printf("RENDERER INIT: INDEX BUFFER SIZE = %d\n", r->object.index_buff->size);
     //printf("RENDERER INIT: VERTEX BUFFER SIZE = %d\n", r->object.vertex_buff->size);
 
-    #if defined(RELEASE)
     printf("Using obj shaders\n");
     int shd_res = shader_init("shaders/obj_vertex.glsl", "shaders/obj_fragment.glsl", &shader);
     if (shd_res == -1) {
@@ -27,18 +23,6 @@ void renderer_init(renderer_t* r) {
     }
   
     renderer_create_obj(r);
-    
-    #elif defined(DEBUG)
-    printf("Using debug shaders\n");
-    int shd_res = shader_init("shaders/vertex.glsl", "shaders/fragment.glsl", &shader);
-    if (shd_res == -1) {
-        fprintf(stderr, "Failed to initalize shader");
-        exit(1);
-    }
-
-    renderer_create_cube(r);
-    #endif
-    
     r->shd = shader; 
 }
 

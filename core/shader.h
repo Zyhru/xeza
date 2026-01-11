@@ -24,6 +24,7 @@ void shader_compilation_error(GLenum shader_type, char *shader_name, unsigned in
 // set shader uniforms
 void shader_mat4_uniform(GLuint program, char* name, mat4 matrix);
 void shader_vec3_uniform(GLuint program, char* name, vec3_t value);
+void shader_float_uniform(GLuint program, char* name, float value);
 
 // check for errors
 
