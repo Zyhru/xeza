@@ -1,15 +1,21 @@
 ## Backlog 
-- [x] Create an option to render obj files and non-obj files
+- [ ] Add a GUI (cimgui)
+    - [ ] Show FPS
+    - [ ] Control model positions
+    - [ ] Ability to change the scenes color
+    - [ ] Option to load models into the scene
+- [ ] Logger 
 - [ ] Report each commit and explain what was fix/changed
 - [ ] Parse OBJ models 
     - [x] Support parsing one object
     - [x] Support parsing multiple objects
     - [x] Test parsing mechanism with a simple obj file
     - [x] Test parsing mechanism with a more complex obj file
-    - [ ] Parse materials and apply textures to the object
-- [x] Add option to close the window with the ESC key
-- [x] Add check to see if .obj file exists 
-- [ ] Core system 
+    - [ ] Textures 
+        - [ ] Parse materials and apply textures to the object
+            - [x] Attach map_kd to each mesh
+            - [ ] Load mesh's texture and send it over to the GPU to finally render this shit!
+- [x] Core system 
     - [x] NDC Coordinates 
         - [x] Install cglm 
         - [x] Model Matrix
@@ -20,12 +26,13 @@
         - [x] Move Around (WASD) 
         - [ ] Move object around with mouse
         - [ ] Look Around (Mouse) 
-    - [ ] Textures 
-    - [ ] Logger 
     - [x] Window
     - [x] Shaders 
     - [x] Render submission 
     - [x] Utils 
+- [x] Create an option to render obj files and non-obj files
+- [x] Add option to close the window with the ESC key
+- [x] Add check to see if .obj file exists 
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Build system
 

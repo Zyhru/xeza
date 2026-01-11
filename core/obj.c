@@ -274,10 +274,12 @@ int obj_load(model_t* model, const char* obj_file) {
             model->meshes[s].texture.name = materials[mat_index].diffuse_texname;
         }
 
+        #if 0
         for(int i = 0; i < model->num_of_meshes; ++i) {
             mesh_t mesh = model->meshes[i];
             printf("Mesh {%d} - Diffuse %s\n", i, mesh.texture.name);
         }
+        #endif
         
         ht_free(table);
     }
