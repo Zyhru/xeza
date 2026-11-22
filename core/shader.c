@@ -14,8 +14,15 @@ int shader_init(char *v, char *f, shader_t* shader) {
     unsigned int v_shader, f_shader;
     char *vertex_buffer, *fragment_buffer;
 
-    if (util_read_file(v, &vertex_buffer)   == -1)  return -1;
-    if (util_read_file(f, &fragment_buffer) == -1)  return -1;
+    if(util_read_file(v, &vertex_buffer) <= 0) {
+        fprintf(stderr, "ERROR: Failed to read vertex shader file\n");
+        return -1;
+    }
+    
+    if(util_read_file(f, &fragment_buffer) <= 0) {
+        fprintf(stderr, "ERROR: Failed to read fragment shader file\n");
+        return -1;
+    }
 
     printf("Vertex Shader: %s\n", vertex_buffer);
     printf("Fragment Shader: %s\n", fragment_buffer);

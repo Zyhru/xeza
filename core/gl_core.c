@@ -4,6 +4,27 @@
 
 #define SCALE_FACTOR 0.1f
 
+void gl_debug_line(vec3_t p1, vec3_t p2, vec3_t color, unsigned int *vao) {
+    vertex_t line[] = {
+        {p1, color, 0},
+        {p2, color, 0},
+    };
+
+    unsigned int vbo;
+    glGenBuffers(1, &vbo);
+    glGenVertexArrays(1, vao);
+
+    glBindVertexArray(*vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_t) * 2, &line, GL_STATIC_DRAW);
+    
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex_t), (void *) offsetof(vertex_t, pos));
+    glEnableVertexAttribArray(0);
+    
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertex_t), (void *) offsetof(vertex_t, color));
+    glEnableVertexAttribArray(1);
+}
+
 void gl_create_object(mesh_t* object) {
     assert(object->vertex_buff != NULL);
     assert(object->index_buff != NULL);

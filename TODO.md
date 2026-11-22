@@ -36,6 +36,20 @@
 - [x] Dynamic List appending (Keep reviewing this though)
 - [x] Build system
 
+# 11/21/2026 
+
+- [ ] Write logic to import both shaders. One for the obj model and one for regular objects
+* Maybe think of have a list of objects that will render instead of having different functions to render different things.
+
+# 11/17/2026
+
+- [x] Write the debug_draw() 
+
+# 11/9/26
+
+* Removed _mmap_file function for reading .obj files since it uses POSIX calls and I want to view my application through RenderDoc
+* Changed util_read_file to return the size 
+
 ## 10/21/2025
 
 - [x] Create VBO and EBO based on Hash Table
@@ -57,7 +71,6 @@ When I'm regrowing the hash table
 we need to move the entries to another array by grabbing
 it's current index and setting the entry to the index 
 in the new arra
-
 
 ## 10/12/2025 (For later)
 - [ ] Write ht_find function

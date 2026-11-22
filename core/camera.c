@@ -1,4 +1,13 @@
 #include "camera.h"
+#include "xmath.h"
+
+vec3_t _convert_vec3_to_vec3t(float *k) {
+    vec3_t v;
+    v.x = k[0];
+    v.y = k[1];
+    v.z = k[2];
+    return v;
+}
 
 void camera_init(camera_t* cam) {
     cam->fov = 45.0f;
@@ -9,11 +18,12 @@ void camera_init(camera_t* cam) {
     cam->eye[1] = 0.0f; // y
     cam->eye[2] = 0.0f; // z
 
-    /* direction */
+    /* target */
     cam->center[0] = 0.0f;
     cam->center[1] = 0.0f;
     cam->center[2] = -1.0f;
 
+    /* y vector */
     cam->up[0] = 0.0f;
     cam->up[1] = 1.0f;
     cam->up[2] = 0.0f;
@@ -22,7 +32,7 @@ void camera_init(camera_t* cam) {
 void camera_move_around(input_t *input, camera_t* cam, float dt) {
     float distance_traveled = cam->speed * dt;
     if(input->forward) {
-        //printf("Moving forward!\n");
+        printf("Moving forward!\n");
         glm_normalize(cam->center);
         glm_vec3_scale(cam->center, distance_traveled, cam->center);
         glm_vec3_add(cam->eye, cam->center, cam->eye);
@@ -37,12 +47,12 @@ void camera_move_around(input_t *input, camera_t* cam, float dt) {
 
     if(input->left) {
         //printf("Moving left!\n"); 
-        vec3 right = {0.0f,0.0f,0.0f};
-        glm_cross(cam->up, cam->center, right);
-        glm_normalize(right);
+        vec3 left = {0.0f,0.0f,0.0f};
+        glm_cross(cam->up, cam->center, left);
+        glm_normalize(left);
         
-        glm_vec3_scale(right, distance_traveled, right);
-        glm_vec3_add(cam->eye, right, cam->eye);
+        glm_vec3_scale(left, distance_traveled, left);
+        glm_vec3_add(cam->eye, left, cam->eye);
     }
     
     if(input->right) {
@@ -62,7 +72,7 @@ void camera_update(input_t* input, camera_t* cam, float dt) {
 }
 
 void camera_look_at(camera_t* cam) {
-    glm_mat4_identity(cam->view);
+    //glm_mat4_identity(cam->view);
    
     vec3 dir = {0.0f, 0.0f, 0.0f};
     glm_vec3_add(cam->eye, cam->center, dir);

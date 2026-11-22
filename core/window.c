@@ -22,7 +22,7 @@ void window_init(window_t* window) {
 
     window->width = WINDOW_WIDTH;
     window->height = WINDOW_HEIGHT;
-    window->title = "Xeza";
+    window->title = "Xeza Engine";
     window->min_version = 3;
     window->max_version = 3;
 
@@ -40,8 +40,8 @@ void window_init(window_t* window) {
 
     // callbacks
     glfwSetFramebufferSizeCallback(window->win, _fb_resize_cb);
-
     glfwMakeContextCurrent(window->win); // this must be active first, before any gl calls
+                                         //
 
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         fprintf(stderr, "ERROR: Failed to load glad\n");
@@ -60,7 +60,6 @@ void window_init(window_t* window) {
 void window_loop(window_t* self) {
     glEnable(GL_DEPTH_TEST);
     
-
     while(!glfwWindowShouldClose(self->win)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.2f, 0.5f, 0.6f, 1.0f);

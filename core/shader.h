@@ -2,7 +2,7 @@
 #define SHADER_H 
 
 #include "api.h"
-#include "math.h"
+#include "xmath.h"
 
 #define INFO_LOG_SIZE 512
 

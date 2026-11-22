@@ -13,7 +13,7 @@ float delta_time = 0.0f;
 float last_frame = 0.0f;
 
 void init(char *obj_file) {
-    printf("Initializing Xeza.\n");
+    printf("Initializing Xeza Engine.\n");
     
     renderer_t renderer;
     model_t model;
@@ -60,8 +60,6 @@ void update() {
     float current_frame = glfwGetTime();
     delta_time = current_frame - last_frame;
     last_frame = current_frame;
-    float randomValue = (float)rand() / (float)RAND_MAX;
-    glm_clamp(randomValue, 0.0f, 1.0f);
 
     renderer_use_shader(&state.renderer); // possibly be moved to render?
   
@@ -80,16 +78,12 @@ void update() {
     mat4 mvp;
     glm_mat4_mul(state.camera.perspective, state.camera.view, mvp); // model * view -> mvp
     glm_mat4_mul(mvp, state.renderer.model.model_matrix, mvp);
-    shader_mat4_uniform(state.renderer.shd.program, "mvp", mvp);
-    shader_float_uniform(state.renderer.shd.program, "time", randomValue);
-
-    // apply the color here
-    //shader_vec3_uniform(state.renderer.shd.program, "random_color", state.renderer.object.random_color);
-    //
+    shader_mat4_uniform(state.renderer.shd.program, "mvp", mvp); // activate uniform in gpu
 }
 
 void render() {
-    renderer_draw_model(&state.renderer);
+    //renderer_draw_model(&state.renderer);
+    renderer_draw_line(&state.renderer);
 }
 
 void destroy() {

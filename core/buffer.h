@@ -2,7 +2,6 @@
 #define BUFFER_H
 
 #include "api.h"
-#include "math.h"
 
 #define LIST_CAPACITY 50
 
@@ -32,6 +31,11 @@ typedef struct {
     size_t bytes;
     list_type_e type;
 } list_t;
+
+typedef struct {
+    char **buffer;
+    int size;
+} buffer_t;
 
 // ptr
 // |

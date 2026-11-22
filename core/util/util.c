@@ -1,5 +1,4 @@
 #include "util.h"
-#include <assert.h>
 
 int util_dot_pos(char* file) {
     int index;
@@ -60,8 +59,8 @@ int util_read_file(char *file_name, char **buffer) {
         fprintf(stderr, "unable to open file: %s\n", file_name); 
         return -1;
     }
-
-    int size;
+    
+    int size = 0;
     fseek(fp, 0, SEEK_END);
     size = ftell(fp);
     fseek(fp, 0, SEEK_SET);
@@ -75,5 +74,5 @@ int util_read_file(char *file_name, char **buffer) {
 
     fclose(fp);
     puts("Finished reading file");
-    return 0;
+    return size;
 }

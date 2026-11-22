@@ -3,6 +3,7 @@
 
 #include "api.h"
 #include "input.h"
+#include "xmath.h"
 
 /*
 *
@@ -12,9 +13,9 @@
 * Essentially an FPS camera
 *
 * Camera will have:
-* Up Vector
-* Direction Vector
-* Starting Position
+    * Up Vector
+    * Direction Vector
+    * Starting Position
 * FOV
 */
 

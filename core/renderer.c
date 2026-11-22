@@ -6,6 +6,8 @@
 #include <stdio.h>
 
 // Have some sort of renderer_create_primitive(enum);
+//
+unsigned int line_vao;
 
 //INFO: initializing the shader, camera, texture, and model
 void renderer_init(renderer_t* r) {
@@ -16,13 +18,17 @@ void renderer_init(renderer_t* r) {
     //printf("RENDERER INIT: VERTEX BUFFER SIZE = %d\n", r->object.vertex_buff->size);
 
     printf("Using obj shaders\n");
-    int shd_res = shader_init("shaders/obj_vertex.glsl", "shaders/obj_fragment.glsl", &shader);
+    int shd_res = shader_init("shaders/vertex.glsl", "shaders/fragment.glsl", &shader);
     if (shd_res == -1) {
         fprintf(stderr, "Failed to initalize shader");
         exit(1);
     }
   
     renderer_create_obj(r);
+    vec3_t p1 = {0,0,0};
+    vec3_t p2 = {0,0,10};
+    vec3_t color = {0,1,0};
+    gl_debug_line(p1, p2, color, &line_vao);
     r->shd = shader; 
 }
 
@@ -30,10 +36,18 @@ void renderer_use_shader(renderer_t *r) {
     glUseProgram(r->shd.program);
 }
 
+#if 0
 void renderer_draw(renderer_t* r) {
-    //glBindVertexArray(r->object.vao);
-    //glDrawElements(GL_TRIANGLES, r->object.index_buff->size, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(r->object.vao);
+    glDrawArrays(GL_TRIANGLES)
+    glDrawElements(GL_TRIANGLES, r->object.index_buff->size, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+}
+#endif
+
+void renderer_draw_line(renderer_t *r) {
+    glBindVertexArray(line_vao);
+    glDrawArrays(GL_LINES, 0, 2);
 }
 
 void renderer_draw_model(renderer_t* r) {

@@ -34,6 +34,8 @@
 *.i*86
 *.x86_64
 *.hex
+/xeza
+/math_test
 
 # Debug files
 *.dSYM/

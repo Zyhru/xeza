@@ -11,7 +11,7 @@
 #include <cglm/cglm.h>
 #include <unistd.h>
 #include <time.h>
-
 #include <stdlib.h>
+#include "xmath.h"
 
 #endif

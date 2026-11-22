@@ -1,13 +1,10 @@
 #include "buffer.h"
+#include "util/util.h"
 #define TINYOBJ_LOADER_C_IMPLEMENTATION
 #include "../vendor/tinyobj_loader_c.h" 
 #include "obj.h"
 
 #include <stdint.h>
-#include <sys/stat.h>
-#include <sys/mman.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include <stdbool.h>
 #include "hash_table.h"
 
@@ -67,44 +64,6 @@ static void print_vertex(tinyobj_attrib_t* attrib) {
     }
 }
 
-static char* _mmap_file(size_t* len, const char* filename) {
-    struct stat sb;
-    char* p;
-    int fd;
-
-    fd = open(filename, O_RDONLY);
-    if (fd == -1) {
-        perror("open");
-        return NULL;
-    }
-
-    if (fstat(fd, &sb) == -1) {
-        perror("fstat");
-        return NULL;
-    }
-
-    if (!S_ISREG(sb.st_mode)) {
-        fprintf(stderr, "%s is not a file\n", filename);
-        return NULL;
-    }
-
-    p = (char*)mmap(0, sb.st_size, PROT_READ, MAP_SHARED, fd, 0);
-
-    if (p == MAP_FAILED) {
-        perror("mmap");
-        return NULL;
-    }
-
-    if (close(fd) == -1) {
-        perror("close");
-        return NULL;
-    }
-
-
-    (*len) = sb.st_size;
-    return p;
-}
-
 static void get_file_data(void* ctx, const char* filename, const int is_mtl,
                           const char* obj_filename, char** data, size_t* len) {
     (void)ctx;
@@ -118,10 +77,15 @@ static void get_file_data(void* ctx, const char* filename, const int is_mtl,
         return;
     }
 
-    size_t data_len = 0;
-
-    *data = _mmap_file(&data_len, filename);
-    (*len) = data_len;
+    char *buffer;
+    int file_size = util_read_file((char *) filename, &buffer);
+    if(file_size <= 0) {
+        fprintf(stderr, "ERROR: %d: file %s has no contents\n", __LINE__, filename);
+        return;
+    }
+    
+    *data = buffer;
+    (*len) = file_size;
 }
 
 int obj_load(model_t* model, const char* obj_file) {
@@ -271,7 +235,7 @@ int obj_load(model_t* model, const char* obj_file) {
             
             model->meshes[s].vertex_buff = vb;
             model->meshes[s].index_buff = ib;
-            model->meshes[s].texture.name = materials[mat_index].diffuse_texname;
+            //model->meshes[s].texture.name = materials[mat_index].diffuse_texname;
         }
 
         #if 0
